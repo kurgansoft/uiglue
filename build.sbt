@@ -1,6 +1,6 @@
 ThisBuild / scalaVersion     := "2.13.8"
 
-val zioVersion = "1.0.4-2"
+val zioVersion = "1.0.13"
 
 lazy val core = project.settings(
     name := "uiglue",
@@ -8,7 +8,8 @@ lazy val core = project.settings(
     sourceDirectory := baseDirectory.value / "src",
     libraryDependencies ++= Seq(
       "dev.zio" %%% "zio" % zioVersion,
-      "org.scala-js" %%% "scala-js-macrotask-executor"  % "1.0.0"
+      "org.scala-js" %%% "scala-js-macrotask-executor"  % "1.0.0",
+      "io.github.cquiroz" %%% "scala-java-time"      % "2.3.0"
     )
   ).enablePlugins(ScalaJSPlugin)
 
