@@ -2,11 +2,12 @@ package examples.counter
 
 import japgolly.scalajs.react.vdom.all._
 import japgolly.scalajs.react.{Callback, ScalaComponent}
+import uiglue.EventLoop
 
 object Displayer {
 
   val rootComponent =
-    ScalaComponent.builder[(CounterState, CounterEvent => Unit)]("RootComponent")
+    ScalaComponent.builder[(CounterState, EventLoop.EventHandler[CounterEvent])]("RootComponent")
       .render_P(pair => {
         val (state, eventEmitter) = pair
         div(
