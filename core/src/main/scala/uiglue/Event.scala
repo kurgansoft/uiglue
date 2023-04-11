@@ -1,3 +1,3 @@
 package uiglue
 
-abstract class Event
+trait Event

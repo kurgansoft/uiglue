@@ -3,10 +3,16 @@ package examples.counter
 import org.scalajs.dom.html.{Div, Element}
 import uiglue.EventLoop.EventHandler
 import uiglue.{EventLoop, UIState}
+import zio.Unsafe
+import zio.internal.stacktracer.Tracer
 
 import scala.concurrent.Future
 
 object EntryPoint {
+
+  implicit val tracer: Tracer = Tracer.instance
+
+  implicit val unsafe: Unsafe = Unsafe.unsafe(x => x)
 
   implicit val ec: scala.concurrent.ExecutionContext = org.scalajs.macrotaskexecutor.MacrotaskExecutor
 
@@ -27,7 +33,7 @@ object EntryPoint {
     val loop = EventLoop.createLoop(state, renderFunction, List(Increase, Increase, Increase))
 
     Future {
-      zio.Runtime.default.unsafeRun(loop)
+      zio.Runtime.default.unsafe.run(loop)
     }
   }
 }
