@@ -1,21 +1,20 @@
 package uiglue
 
 import zio.internal.stacktracer.Tracer
-import zio.{Queue, Ref, Unsafe, UIO, ZIO}
+import zio.{Queue, Ref, UIO, URIO, Unsafe, ZIO}
 
 import scala.concurrent.Future
 
 object EventLoop {
 
-  type EventHandler[E <: Event] = E => Unit
-
   implicit val tracer: Tracer = Tracer.instance
-
   implicit val unsafe: Unsafe = Unsafe.unsafe(x => x)
+
+  type EventHandler[E <: Event] = E => Unit
 
   private def createEventHandler[E <: Event](queue: Queue[E]): EventHandler[E] = event => {
     Future {
-      zio.Runtime.default.unsafe.run(queue.offer(event).as())
+      zio.Runtime.default.unsafe.run(queue.offer(event))
     }(org.scalajs.macrotaskexecutor.MacrotaskExecutor)
   }
 
