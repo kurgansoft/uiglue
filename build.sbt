@@ -1,6 +1,6 @@
 ThisBuild / scalaVersion := "3.3.0"
 
-val zioVersion = "2.1.14"
+val zioVersion = "2.1.15"
 
 lazy val core = project.settings(
     name := "uiglue",
