@@ -21,4 +21,4 @@ sbt examples/fastOptJS
 ```
 
 Then as a temporary workaround the generated 'main.js' file need to be
-moved to the same folder as the 'index.hmtl' file.
+moved to the same folder as the 'index.html' file.
