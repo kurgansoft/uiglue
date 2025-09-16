@@ -1,6 +1,6 @@
 ThisBuild / scalaVersion := "3.3.5"
 
-val zioVersion = "2.1.20"
+val zioVersion = "2.1.21"
 
 lazy val core = project.settings(
     name := "uiglue",
@@ -22,6 +22,6 @@ lazy val examples = project.settings(
   Compile / scalaJSUseMainModuleInitializer := true,
   libraryDependencies ++= Seq(
     "org.scala-js" %%% "scalajs-dom" % "2.8.1",
-    "com.github.japgolly.scalajs-react"  %%% "core" % "2.1.2"
+    "com.github.japgolly.scalajs-react"  %%% "core" % "2.1.3"
   )
 ).dependsOn(core).enablePlugins(ScalaJSPlugin)
