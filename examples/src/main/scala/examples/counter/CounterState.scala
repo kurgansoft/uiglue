@@ -1,11 +1,11 @@
 package examples.counter
 
 import uiglue.{EventLoop, UIState}
-import zio.ZIO
+import zio.{UIO, ZIO}
 
-case class CounterState(number: Int = 0) extends UIState[CounterEvent] {
+case class CounterState(number: Int = 0) extends UIState[CounterEvent, Any] {
 
-  override def processEvent(event: CounterEvent): (UIState[CounterEvent], EventLoop.EventHandler[CounterEvent] => ZIO[Any, Nothing, List[CounterEvent]]) = event match {
+  override def processEvent(event: CounterEvent): (UIState[CounterEvent, Any], EventLoop.EventHandler[CounterEvent] => UIO[List[CounterEvent]]) = event match {
     case Increase =>
       val newState = this.copy(number = number + 1)
       if (newState.number == 10)

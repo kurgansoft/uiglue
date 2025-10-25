@@ -1,7 +1,7 @@
 package uiglue
 
 import zio.internal.stacktracer.Tracer
-import zio.{Queue, Ref, UIO, URIO, Unsafe, ZIO}
+import zio.{Queue, Ref, Unsafe, ZIO}
 
 import scala.concurrent.Future
 
@@ -18,11 +18,11 @@ object EventLoop {
     }(org.scalajs.macrotaskexecutor.MacrotaskExecutor)
   }
 
-  def createLoop[E <: Event](
-                            initalState: UIState[E],
-                            renderFunction: (UIState[E], EventHandler[E]) => Unit,
+  def createLoop[E <: Event, Dependencies](
+                            initalState: UIState[E, Dependencies],
+                            renderFunction: (UIState[E, Dependencies], EventHandler[E]) => Unit,
                             bootStrapEvents: List[E] = List.empty
-                            ): UIO[Unit] = {
+                            ): ZIO[Dependencies, Nothing, Unit] = {
     for {
       state <- Ref.make(initalState)
       queue <- Queue.unbounded[E]

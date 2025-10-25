@@ -1,6 +1,6 @@
 package examples.counter
 
-import org.scalajs.dom.html.{Div, Element}
+import org.scalajs.dom.html.Div
 import uiglue.EventLoop.EventHandler
 import uiglue.{EventLoop, UIState}
 import zio.Unsafe
@@ -23,10 +23,10 @@ object EntryPoint {
     init(newDiv)
   }
 
-  def init(div: Div): Unit = {
+  private def init(div: Div): Unit = {
     val state = CounterState()
 
-    val renderFunction: (UIState[CounterEvent], EventHandler[CounterEvent]) => Unit =
+    val renderFunction: (UIState[CounterEvent, Any], EventHandler[CounterEvent]) => Unit =
       (state, eventHandler) =>
         Displayer.rootComponent(state.asInstanceOf[CounterState], eventHandler).renderIntoDOM(div)
 
