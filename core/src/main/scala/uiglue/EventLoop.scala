@@ -34,8 +34,8 @@ object EventLoop {
           currentState <- state.get
           (newState, effect) = currentState.processEvent(event)
           _ <- state.set(newState)
-          _ <- ZIO.succeed(renderFunction(newState, eventHandler)).fork
           _ <- effect(eventHandler).flatMap(queue.offerAll).fork
+          _ = renderFunction(newState, eventHandler)
         } yield ()
       ).forever
     } yield ()
