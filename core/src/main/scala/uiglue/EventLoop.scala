@@ -15,7 +15,7 @@ object EventLoop {
   private def createEventHandler[E <: Event](queue: Queue[E]): EventHandler[E] = event => {
     Future {
       zio.Runtime.default.unsafe.run(queue.offer(event))
-    }(org.scalajs.macrotaskexecutor.MacrotaskExecutor)
+    }(using org.scalajs.macrotaskexecutor.MacrotaskExecutor)
   }
 
   def createLoop[E <: Event, Dependencies](
